@@ -59,11 +59,18 @@ namespace TestubgCodeWpfApp
 
             return Second;
         }
-
-
+        
         public void ShutDown(string timeSec)
         {
-            var psi = new ProcessStartInfo("shutdown", "/s /t "+ timeSec);
+            ProcessStartInfo psi = new ProcessStartInfo("shutdown", "/s /t "+ timeSec);
+            psi.CreateNoWindow = true;
+            psi.UseShellExecute = false;
+            Process.Start(psi);
+        }
+
+        public void StopShutdown()
+        {
+            ProcessStartInfo psi = new ProcessStartInfo("shutdown -a");
             psi.CreateNoWindow = true;
             psi.UseShellExecute = false;
             Process.Start(psi);

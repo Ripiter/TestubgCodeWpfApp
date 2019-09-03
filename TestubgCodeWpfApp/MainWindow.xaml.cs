@@ -36,14 +36,13 @@ namespace TestubgCodeWpfApp
         public MainWindow()
         {
             InitializeComponent();
-        
        
             // Startig values of the label
             Hour.Content = "0";
             Minute.Content = "0";
             Second.Content = "0";
 
-            string[] boy = new string[] { "oh", "boy", "how", "wrong", "you", "are" };
+            string[] boy = new string[] { "Shutdown" };
             
             cmbColors.ItemsSource = boy;
            
@@ -191,11 +190,12 @@ namespace TestubgCodeWpfApp
                     UpdateContentHour();
                     timer.Minute = 59f;
                 }
-                Second.Content = 60f;            }
+                Second.Content = 60f;
+            }
             else
                 timer.Minute--;
 
-                Minute.Content = timer.ReturnMinutes();
+            Minute.Content = timer.ReturnMinutes();
         }
 
         private void UpdateContentSecond(object sender, EventArgs e)
@@ -224,7 +224,7 @@ namespace TestubgCodeWpfApp
         /// </summary>
         private void Done()
         {
-            ShutDown("100");
+            ShutDown(SecondsBack());
             Reset();
         }
 
@@ -253,8 +253,28 @@ namespace TestubgCodeWpfApp
         /// <param name="time"></param>
         private void ShutDown(string time)
         {
-            MessageBox.Show(time + "sec to shutdown");
+            MessageBox.Show(time + " sec to shutdown");
             timer.ShutDown(time);
+        }
+
+        private void StopShutDown()
+        {
+            MessageBox.Show("Shutdown stopped");
+            timer.StopShutdown();
+        }
+
+        /// <summary>
+        /// Return time that was set in the app in seconds
+        /// </summary>
+        /// <returns></returns>
+        private string SecondsBack()
+        {
+            float sec = 0;
+            sec = sec + (hours * 60) * 60;
+            sec = sec + (minutes * 60);
+            sec = sec + seconds;
+
+            return sec.ToString();
         }
     }
 }
