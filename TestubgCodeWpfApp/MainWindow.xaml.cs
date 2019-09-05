@@ -225,10 +225,8 @@ namespace TestubgCodeWpfApp
         private void Done()
         {
             if (selectedItem == "Custom")
-                MessageBox.Show(customInput);
+                MessageBox.Show(customInput, "It's Show Time", MessageBoxButton.OK,MessageBoxImage.Information,MessageBoxResult.OK,MessageBoxOptions.ServiceNotification);
             Reset();
-
-            
         }
 
         /// <summary>

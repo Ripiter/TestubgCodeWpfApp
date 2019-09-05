@@ -13,18 +13,18 @@
         <Button Content="Button" HorizontalAlignment="Left" Margin="483,113,0,0" VerticalAlignment="Top" Width="75" Click="AddSecond"/>
 
         <!--Label Hours-->
-        <Label x:Name="Hour" Content="0" HorizontalAlignment="Left" Margin="201,203,0,0" VerticalAlignment="Top" Height="60" Width="75" FontSize="26"/>
+        <Label x:Name="Hour" Content="0" HorizontalAlignment="Left" Margin="205,203,0,0" VerticalAlignment="Top" Height="60" Width="75" FontSize="26"/>
         <!--Label Minutes-->
-        <Label x:Name="Minute" Content="0" HorizontalAlignment="Left" Margin="351,203,0,0" VerticalAlignment="Top" Height="60" Width="75" FontSize="26"/>
+        <Label x:Name="Minute" Content="0" HorizontalAlignment="Left" Margin="355,203,0,0" VerticalAlignment="Top" Height="60" Width="75" FontSize="26"/>
         <!--Label Sec-->
-        <Label x:Name="Second" Content="0" HorizontalAlignment="Left" Margin="535,203,0,0" VerticalAlignment="Top" Height="60" Width="75" FontSize="26" RenderTransformOrigin="0.752,0.587"/>
+        <Label x:Name="Second" Content="0" HorizontalAlignment="Left" Margin="505,203,0,0" VerticalAlignment="Top" Height="60" Width="75" FontSize="26" RenderTransformOrigin="0.752,0.587"/>
 
 
 
         <!--//Buttom Buttoms-->
         <Button Content="Button" HorizontalAlignment="Left" Margin="185,314,0,0" VerticalAlignment="Top" Width="75" Click="MinusHour"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="334,314,0,0" VerticalAlignment="Top" Width="75" Click="MinusMinute"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="519,314,0,0" VerticalAlignment="Top" Width="75" Click="MinusSecond"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="483,314,0,0" VerticalAlignment="Top" Width="75" Click="MinusSecond"/>
 
         <!--Confirm Button-->
         <Button Content="Start" HorizontalAlignment="Left" Margin="664,172,0,0" VerticalAlignment="Top" Width="75" Click="Confirm"/>
