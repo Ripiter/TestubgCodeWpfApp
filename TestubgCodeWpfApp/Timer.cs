@@ -70,7 +70,7 @@ namespace TestubgCodeWpfApp
 
         public void StopShutdown()
         {
-            ProcessStartInfo psi = new ProcessStartInfo("shutdown -a");
+            ProcessStartInfo psi = new ProcessStartInfo("shutdown", "/a");
             psi.CreateNoWindow = true;
             psi.UseShellExecute = false;
             Process.Start(psi);

@@ -1,22 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using System.Diagnostics;
 using System.Windows.Threading;
-
-using System.IO;
 
 namespace TestubgCodeWpfApp
 {
@@ -25,10 +10,11 @@ namespace TestubgCodeWpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private float hours =  0;
-        private float minutes =  0;
-        private float seconds =  0;
+        private float hours = 0;
+        private float minutes = 0;
+        private float seconds = 0;
         private bool canClick = true;
+        private string selectedItem;
 
         DispatcherTimer dispatcherTimer;
         Timer timer;
@@ -36,16 +22,18 @@ namespace TestubgCodeWpfApp
         public MainWindow()
         {
             InitializeComponent();
-       
+            // Hides custom input
+            CustomText.Visibility = Visibility.Hidden;
+
             // Startig values of the label
             Hour.Content = "0";
             Minute.Content = "0";
             Second.Content = "0";
 
-            string[] boy = new string[] { "Shutdown" };
-            
+            string[] boy = new string[] { "Shutdown", "Custom" };
+
             cmbColors.ItemsSource = boy;
-           
+
             cmbColors.SelectionChanged += OnSelectionChanged;
         }
 
@@ -57,10 +45,14 @@ namespace TestubgCodeWpfApp
         /// <param name="e"></param>
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cmbColors.SelectedItem != null)
-            {
-                Debug.WriteLine(cmbColors.SelectedItem);
-            }
+            selectedItem = cmbColors.SelectedItem.ToString();
+
+            // Check if custom is selected
+            if (selectedItem == "Custom")
+                CustomText.Visibility = Visibility.Visible;
+            else
+                CustomText.Visibility = Visibility.Hidden;
+
         }
 
         #region Buttons
@@ -137,20 +129,21 @@ namespace TestubgCodeWpfApp
                 return;
 
             timer = new Timer(hours, minutes, seconds);
-       
-            UpdateSeconds();
 
+            UpdateSeconds();
+            StartMethod();
             canClick = false;
         }
 
         /// <summary>
-        /// Pauses the timer coutdown
+        /// Pauses the timer coutdown and stops the shutdown
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Pause(object sender, RoutedEventArgs e)
         {
             Reset();
+            StopShutDown();
         }
         #endregion
 
@@ -169,7 +162,14 @@ namespace TestubgCodeWpfApp
 
         private void StopTimer()
         {
-            dispatcherTimer.Stop();
+            try
+            {
+                dispatcherTimer.Stop();
+            }
+            catch
+            {
+
+            }
         }
 
         private void UpdateContentHour()
@@ -209,11 +209,11 @@ namespace TestubgCodeWpfApp
             {
                 if (timer.Minute >= 0)
                 {
-                    UpdateContentMinute();                   
+                    UpdateContentMinute();
                     timer.Second = 60f;
                 }
             }
-          
+
             Second.Content = temp;
         }
 
@@ -224,8 +224,11 @@ namespace TestubgCodeWpfApp
         /// </summary>
         private void Done()
         {
-            ShutDown(SecondsBack());
+            if (selectedItem == "Custom")
+                MessageBox.Show(customInput);
             Reset();
+
+            
         }
 
         /// <summary>
@@ -248,6 +251,22 @@ namespace TestubgCodeWpfApp
         }
 
         /// <summary>
+        /// Selects which method should run
+        /// </summary>
+        void StartMethod()
+        {
+            switch (selectedItem)
+            {
+                case "Shutdown":
+                    ShutDown(SecondsBack());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #region Shutdown Methods
+        /// <summary>
         /// Shutsdown the computer after x time
         /// </summary>
         /// <param name="time"></param>
@@ -259,9 +278,28 @@ namespace TestubgCodeWpfApp
 
         private void StopShutDown()
         {
-            MessageBox.Show("Shutdown stopped");
-            timer.StopShutdown();
+            try
+            {
+                if (selectedItem == "Shutdown")
+                {
+                    MessageBox.Show("Shutdown stopped");
+                    timer.StopShutdown();
+                }
+            }
+            catch
+            {
+
+            }
         }
+        #endregion
+
+        #region Custom Alert
+        string customInput;
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+           // customInput = CustomText.Text;
+        }
+        #endregion
 
         /// <summary>
         /// Return time that was set in the app in seconds
@@ -275,6 +313,11 @@ namespace TestubgCodeWpfApp
             sec = sec + seconds;
 
             return sec.ToString();
+        }
+
+        private void CustomText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            customInput = CustomText.Text;
         }
     }
 }
