@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="Upload image" HorizontalAlignment="Left" Margin="187,144,0,0" VerticalAlignment="Top" Width="111" Click="ImageUpload" Height="38"/>
+        <Button Content="Confirm" Margin="187,213,495.6,168"  Click="ConfirmBtn" ></Button>
+        <TextBox Name="inputBox" Text="Input here" Margin="187,65,495.6,296" TextChanged="TextBox_TextChanged"  ></TextBox>
     </Grid>
 </Window>

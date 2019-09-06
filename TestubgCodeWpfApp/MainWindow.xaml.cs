@@ -52,7 +52,6 @@ namespace TestubgCodeWpfApp
                 CustomText.Visibility = Visibility.Visible;
             else
                 CustomText.Visibility = Visibility.Hidden;
-
         }
 
         #region Buttons
@@ -126,6 +125,9 @@ namespace TestubgCodeWpfApp
         private void Confirm(object sender, RoutedEventArgs e)
         {
             if (canClick == false)
+                return;
+
+            if (timer.Second == 0 && timer.Minute == 0 && timer.Hour == 0)
                 return;
 
             timer = new Timer(hours, minutes, seconds);
@@ -224,9 +226,20 @@ namespace TestubgCodeWpfApp
         /// </summary>
         private void Done()
         {
-            if (selectedItem == "Custom")
-                MessageBox.Show(customInput, "It's Show Time", MessageBoxButton.OK,MessageBoxImage.Information,MessageBoxResult.OK,MessageBoxOptions.ServiceNotification);
+            Selected(selectedItem);
             Reset();
+        }
+
+        private void Selected(string message)
+        {
+            switch (message)
+            {
+                case "Custom":
+                    MessageBox.Show(customInput, "It's Show Time", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -251,7 +264,7 @@ namespace TestubgCodeWpfApp
         /// <summary>
         /// Selects which method should run
         /// </summary>
-        void StartMethod()
+        private void StartMethod()
         {
             switch (selectedItem)
             {
