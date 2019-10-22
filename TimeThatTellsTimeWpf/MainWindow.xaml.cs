@@ -1,8 +1,14 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
+
+
+using System.Text;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace TimeThatTellsTimeWpf
 {
@@ -25,10 +31,7 @@ namespace TimeThatTellsTimeWpf
                  "Png|*png;";
 
             if (op.ShowDialog() == true)
-            {
                 path = op.FileName;
-            }
-
         }
         string path;
         string input;
@@ -48,6 +51,23 @@ namespace TimeThatTellsTimeWpf
 
             Debug.WriteLine("ok");
             Logik logik = new Logik(input,path);
+            
+        }
+
+        byte[] ConvertXmlToByteArray(XElement xml, Encoding encoding)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                XmlWriterSettings settings = new XmlWriterSettings();
+                // Add formatting and other writer options here if desired
+                settings.Encoding = encoding;
+                settings.OmitXmlDeclaration = true; // No prolog
+                using (XmlWriter writer = XmlWriter.Create(stream, settings))
+                {
+                    xml.Save(writer);
+                }
+                return stream.ToArray();
+            }
         }
     }
 }

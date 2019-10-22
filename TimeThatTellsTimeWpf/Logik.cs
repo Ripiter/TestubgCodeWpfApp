@@ -11,7 +11,7 @@ namespace TimeThatTellsTimeWpf
     {
         public Logik(string name, string path)
         {
-            if (CheckIfNameIsCorrent(CheckCorrentInput(name)) == "Corrent")
+            if (CheckIfNameIsCorrent(CheckCorrentInput(name)) == "Correct")
                 InsertImageAndName(path, name);
             else
                 Debug.WriteLine("No name");
@@ -44,7 +44,7 @@ namespace TimeThatTellsTimeWpf
         string CheckIfNameIsCorrent(string nameOfItem)
         {
             if (nameOfItem.Contains("true"))
-                return "Corrent";
+                return "Correct";
             else
                 return "No item with that name";
         }
@@ -64,12 +64,14 @@ namespace TimeThatTellsTimeWpf
                 conn.Open();
                 cmd.Parameters.AddWithValue("@Price", 100);
                 cmd.Parameters.AddWithValue("@Name", name);
-                cmd.Parameters.AddWithValue("@API", 200);
+                cmd.Parameters.AddWithValue("@API", api);
                 //cmd.Parameters.AddWithValue("@Img", img);
                 
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
         }
+        // TO DO:
+        // Add Price
     }
 }
